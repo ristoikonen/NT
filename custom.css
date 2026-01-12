@@ -1,0 +1,25 @@
+/* Change primary color */
+:root {
+    --bs-primary: #4CAF50; /* Green */
+    --bs-secondary: #e6fc6d; /* Orange */
+}
+
+/* Customize buttons */
+.btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-secondary);
+}
+
+.btn-primary:hover {
+    background-color: #e7dd4d;
+    border-color: #3e8e41;
+}
+
+/* Change navbar background */
+.navbar {
+    background-color: var(--bs-primary) !important;
+}
+
+.navbar .nav-link {
+    color: white !important;
+}
