@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings Icon — 3 States</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #dbdbfa;
+      --surface: #a2a2f7;
+      --border: #2e2e36;
+      --text: #e8e8f0;
+      --muted: #666680;
+      --brand: #6c63ff;
+      --brand-light: #8b85ff;
+      --hover-bg: #23232c;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Mono', monospace;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+      padding: 48px 24px;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-align: center;
+    }
+    h1 span { color: var(--brand-light); }
+
+    .grid {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 36px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      min-width: 160px;
+      transition: border-color 0.2s;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Icon Button Base ── */
+    .icon-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+      position: relative;
+      outline: none;
+    }
+
+    .icon-btn svg {
+      width: 28px;
+      height: 28px;
+      transition: transform 0.3s ease, opacity 0.2s ease;
+    }
+
+    /* ── DEFAULT state ── */
+    .btn-default {
+      background: transparent;
+      /*border: 1.5px solid var(--border);*/
+    }
+    .btn-default svg { opacity: 0.45; color: var(--text); }
+
+
+
+    /* ── HOVER state (static demo) ── */
+    .btn-hover {
+      background: var(--hover-bg);
+      border: 1.5px solid #4a4a60;
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
+    }
+    .btn-hover svg { opacity: 0.85; color: var(--brand-light); }
+
+    /* ── SELECTED state ── */
+    .btn-selected {
+      background: var(--brand);
+      border: 1.5px solid var(--brand);
+      box-shadow: 0 4px 20px rgba(108,99,255,0.45);
+    }
+
+    .btn-selected svg { opacity: 1; color: #fff; transform: rotate(30deg); }
+
+    .btnSettings-selected {
+      background: var(--brand);
+      border: 1.5px solid var(--brand);
+      box-shadow: 0 4px 20px rgba(108,99,255,0.45);
+    }
+
+    /* ── Live interactive button ── */
+    .live-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .live-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    #live-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.18s ease;
+      outline: none;
+    }
+    #live-btn svg { width: 28px; height: 28px; color: var(--text); opacity: 0.45; transition: all 0.3s ease; }
+
+    #live-btn:hover {
+      background: var(--hover-bg);
+      border-color: #4a4a60;
+      box-shadow: 0 0 0 3px rgba(108,99,255,0.12);
+    }
+    #live-btn:hover svg { opacity: 0.85; color: var(--brand-light); }
+
+    #live-btn.selected {
+    #live-btn.selected, .icon-btn.selected {
+      background: var(--brand);
+      border-color: var(--brand);
+      box-shadow: 0 4px 20px rgba(108,99,255,0.45);
+    }
+    #live-btn.selected svg { opacity: 1; color: #fff; transform: rotate(30deg); }
+    #live-btn.selected svg, .icon-btn.selected img { opacity: 1; transform: rotate(30deg); }
+    .icon-btn.selected img { filter: brightness(0) invert(1); }
+
+    #state-tag {
+      font-size: 0.72rem;
+      color: var(--brand-light);
+      letter-spacing: 0.05em;
+      min-height: 1.2em;
+      transition: opacity 0.2s;
+    }
+
+    hr.divider {
+      width: 100%;
+      max-width: 520px;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Settings Icon <span>States</span></h1>
+
+  <!-- Static state demos https://cdn-icons-png.flaticon.com/512/3524/3524639.png   filter: invert(100%) sepia(100%) grayscale(100%) brightness(150%);  -->
+  <div class="grid">
+
+    <div class="card" style="color:var(--bg); ">
+    <div class="card">
+      <span class="label">Settings</span>
+      <button class="icon-btn btn-default" aria-label="Settings" id="settings-btn" >
+        <img src="images/SettingsBlack64.png" alt="Settings Icon" style="width:64px; height:64px; "/>
+        <img id="img-settings" src="images/SettingsLtGray64.png" alt="Settings Icon" style="width:32px; height:32px; transition: all 0.3s ease; opacity: 0.45;"/>
+      </button>
+      <span class="label" style="color:blue; font-size:0.62rem;"style="color:var(--bg); font-size:0.62rem;">Light Grey Outline</span>
+      <span id="lbl-settings" class="label" style="color:var(--muted); font-size:0.62rem;">Settings</span>
+    </div>
+
+    
+    <div class="card">
+      <span class="label">Default</span>
+      <button class="icon-btn btn-default" aria-label="Settings default">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <span class="label" style="color:#444458; font-size:0.62rem;">Light Grey Outline</span>
+    </div>
+
+    <div class="card">
+      <span class="label">Hover</span>
+      <button class="icon-btn btn-hover" aria-label="Settings hover">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <span class="label" style="color:#444458; font-size:0.62rem;">Darker Outline + Soft BG</span>
+    </div>
+
+    <div class="card">
+      <span class="label">Selected</span>
+      <button class="icon-btn btn-selected" aria-label="Settings selected">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+      <span class="label" style="color:#444458; font-size:0.62rem;">Bold Solid Brand Color</span>
+    </div>
+  </div>
+
+  <hr class="divider"/>
+
+  <!-- Live interactive -->
+  <div class="live-section">
+    <span class="live-label">Try it — click to toggle</span>
+    <button id="live-btn" aria-label="Live settings button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+    <span id="state-tag">default</span>
+  </div>
+
+  <script>
+    const btn = document.getElementById('live-btn');
+    const btnSettings = document.getElementById('settings-btn');
+    const imgSettings = document.getElementById('img-settings');
+    const lblSettings = document.getElementById('lbl-settings');
+    const tag = document.getElementById('state-tag');
+
+    btn.addEventListener('click', () => {
+      const isSelected = btn.classList.toggle('selected');
+      tag.textContent = isSelected ? 'selected' : 'default';
+    });
+
+    btnSettings.addEventListener('click', () => {
+      const isSelected = btnSettings.classList.toggle('selected');
+      tag.textContent = isSelected ? 'selected' : 'default';
+      lblSettings.textContent = isSelected ? 'EDIT SETTINGS' : 'Settings';
+      lblSettings.style.color = isSelected ? 'var(--brand-light)' : 'var(--muted)';
+      imgSettings.style.opacity = isSelected ? '1' : '0.45';
+      imgSettings.setAttribute('src', isSelected ? 'images/SettingsBlack64.png' : 'images/SettingsLtGray64.png' );
+    });
+
+    btn.addEventListener('mouseenter', () => {
+      if (!btn.classList.contains('selected')) tag.textContent = 'hover';
+    });
+    btn.addEventListener('mouseleave', () => {
+      if (!btn.classList.contains('selected')) tag.textContent = 'default';
+    });
+  </script>
+</body>
+</html>
